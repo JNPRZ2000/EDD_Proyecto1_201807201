@@ -59,12 +59,36 @@ class SimplyLinkedList {
         while (current != null) {
             userG = current.getValue()
             if (userG instanceof User) {
-                graph += `\n\t\tnode[shape = box label = "${userG}"]${nameGraph}${id}`
+                graph += `\n\t\tnode[shape = box label = "${userG}"]${nameGraph}${id};`;
             }
             id += 1;
             current = current.getNext();
         }
-
+        current = this.head;
+        id = 0;
+        while (current != null) {
+            if (current.getNext() != null) {
+                graph += `\n\t\t${nameGraph}${id} -> ${nameGraph}${id + 1};`;
+            }
+            id += 1;
+            current = current.getNext();
+        }
+        graph += `\n\t\t label = \"${nameGraph}\"\n\t}`;
+        console.log(graph);
+        return graph;
+    }
+    toString() {
+        let str = "[";
+        let actual = this.head;
+        while (actual != null) {
+            if (actual.getNext() != null) {
+                str += `${actual.getValue()}, `;
+            } else {
+                str += actual.getValue();
+            }
+            actual = actual.getNext();
+        }
+        return str += "]"
     }
 }
 class Node {

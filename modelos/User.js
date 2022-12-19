@@ -1,3 +1,4 @@
+import CircularDoublyLinkedList from "../edd/CircularDoublyLinkedList.js";
 "use strict";
 class User {
     constructor(dpi, name, username, password, phone) {
@@ -7,6 +8,7 @@ class User {
         this.password = password;
         this.phone = phone;
         this.admin = false;
+        this.playlist = new CircularDoublyLinkedList();
     }
     getDPI() {
         return this.dpi;
@@ -46,6 +48,12 @@ class User {
     }
     isAdmin() {
         return this.admin
+    }
+    getPlaylist() {
+        return this.playlist;
+    }
+    addToPlaylist(song) {
+        this.playlist.add(song);
     }
 }
 

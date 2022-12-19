@@ -5,10 +5,18 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Muster Cloud</title>
+    <!--script src="http://d3js.org/d3.v3.min.js" type="application/javascript" charset="utf-8"></script-->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"
+        integrity="sha512-FHsFVKQ/T1KWJDGSbrUhTJyS1ph3eRrxI228ND0EGaEp6v4a/vGwPWd3Dtd/+9cI7ccofZvl/wulICEurHN1pg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 
 <body id="body">
+    <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">MUSTER CLOUD</a>
@@ -93,6 +101,7 @@
     <div id="panelAdmin" class="panel-admin">
         <div class="wrapper">
             <div class="tabs">
+                <!--USUARIOS-->
                 <div class="tab">
                     <input type="radio" name="css-tabs" id="adminTabUser" checked class="tab-switch">
                     <label for="adminTabUser" class="tab-label">Usuarios</label>
@@ -103,10 +112,14 @@
                         </div>
                         <div>
                             <button type="button" id="tabuserBtn" class="btn btn-dark">Generar gráfica</button>
+                            <div>
+                                <div id="graphUsers"></div>
+                            </div>
                         </div>
 
                     </div>
                 </div>
+                <!--ARTISTAS-->
                 <div class="tab">
                     <input type="radio" name="css-tabs" id="adminTabArtists" class="tab-switch">
                     <label for="adminTabArtists" class="tab-label">Artistas</label>
@@ -117,9 +130,13 @@
                         </div>
                         <div>
                             <button type="button" id="tabArtistBtn" class="btn btn-dark">Generar gráfica</button>
+                            <div>
+                                <div id="graphArtist"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!--CANCIONES-->
                 <div class="tab">
                     <input type="radio" name="css-tabs" id="adminTabSongs" class="tab-switch">
                     <label for="adminTabSongs" class="tab-label">Canciones</label>
@@ -130,9 +147,13 @@
                         </div>
                         <div>
                             <button type="button" id="tabSongBtn" class="btn btn-dark">Generar gráfica</button>
+                            <div>
+                                <div id="graphSong"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!--PROGRAMA-->
                 <div class="tab">
                     <input type="radio" name="css-tabs" id="adminTabProgram" class="tab-switch">
                     <label for="adminTabProgram" class="tab-label">Música Programada</label>
@@ -143,9 +164,13 @@
                         </div>
                         <div>
                             <button type="button" id="tabProgramBtn" class="btn btn-dark">Generar gráfica</button>
+                            <div>
+                                <div id="graphProgram"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!--PODCAST-->
                 <div class="tab">
                     <input type="radio" name="css-tabs" id="adminTabPodcast" class="tab-switch">
                     <label for="adminTabPodcast" class="tab-label">Podcast</label>
@@ -156,15 +181,86 @@
                         </div>
                         <div>
                             <button type="button" id="tabPodcastBtn" class="btn btn-dark">Generar gráfica</button>
+                            <div>
+                                <div id="graphPodcast"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
+    <!--PANTALLA DE USUARIO-->
+    <div id="panelUsuario" class="panel-admin">
+        <div class="wrapper">
+            <div class="tabs">
+                <!--MUSICA-->
+                <div class="tab">
+                    <input type="radio" name="css-tabs" id="userTabMusica" checked class="tab-switch">
+                    <label for="userTabMusica" class="tab-label">Música</label>
+                    <div class="tab-content">
+                        <div id="musicaCards">
 
+                        </div>
+                        <div id="publicarCancion">
+                            <div class="card" style="width: 18rem;">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"><input type="text" id="publicarsongname"
+                                            placeholder="Nombre de la canción"></h5>
+                                    <a href="#" id="btnPublicarCancion" class="btn btn-primary">Publicar</a>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><input type="text" id="publicarsongartista"
+                                                placeholder="Artista">
+                                        </li>
+                                        <li class="list-group-item"><input type="text" id="publicarsonggenero"
+                                                placeholder="Género">
+                                        </li>
+                                        <li class="list-group-item"><input type="number" id="publicarsongtime"
+                                                placeholder="Tiempo"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--PLAYLIST-->
+                <div class="tab">
+                    <input type="radio" name="css-tabs" id="userTabPlaylist" class="tab-switch">
+                    <label for="userTabPlaylist" class="tab-label">Playlist</label>
+                    <div class="tab-content">
+                        <div>
+                            <button class="btn btn-primary" id="userPlaylistReload">Actualizar Gráfica</button>
+                        </div>
+                        <span id="userGraphPlaylist">
+
+                        </span>
+                    </div>
+                </div>
+                <!--ARTISTAS-->
+                <div class="tab">
+                    <input type="radio" name="css-tabs" id="userTabArtist" class="tab-switch">
+                    <label for="userTabArtist" class="tab-label">Artistas</label>
+                    <div class="tab-content">
+                    </div>
+                </div>
+                <!--AMIGOS-->
+                <div class="tab">
+                    <input type="radio" name="css-tabs" id="userTabAmigos" class="tab-switch">
+                    <label for="userTabAmigos" class="tab-label">Amigos</label>
+                    <div class="tab-content">
+                    </div>
+                </div>
+                <!--BLOQUEADOS-->
+                <div class="tab">
+                    <input type="radio" name="css-tabs" id="userTabBloqueados" class="tab-switch">
+                    <label for="userTabBloqueados" class="tab-label">Bloqueados</label>
+                    <div class="tab-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--SCRIPT Y ESTILOS-->
     <script type="module" src="static/index.js"></script>
     <link rel='stylesheet' type='text/css' href='static/index.css'>
